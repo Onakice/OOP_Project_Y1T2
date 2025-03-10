@@ -1,0 +1,54 @@
+.category_food {
+    text-align: left;
+}
+
+.image-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    margin: 0 10px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* CSS สำหรับกำหนดขนาดรูปภาพ */
+#pizzaImageContainer img {
+    width: 200px; /* กำหนดความกว้างเป็น 200px */
+    height: auto; /* ให้ความสูงปรับอัตโนมัติเพื่อให้รักษาสัดส่วนของรูปภาพ */
+    margin-left: 200px;
+}
+
+#drinkImageContainer img {
+    width: 150px; /* กำหนดความกว้างเป็น 150px */
+    height: auto; /* ให้ความสูงปรับอัตโนมัติเพื่อให้รักษาสัดส่วนของรูปภาพ */
+    margin-left: 200px;
+}
+
+#addToBasketButton {
+    margin-left: 50px;
+    margin-right: 100px;
+}
+
+.form-group {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#size {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+#quantity {
+    margin-left: 10px;
+    margin-right: 20px;
+}

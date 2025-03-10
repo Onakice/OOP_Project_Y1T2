@@ -1,0 +1,54 @@
+body {
+    background-color: #f8f9fa; /* สีพื้นหลัง */
+}
+.container {
+    padding-top: 20px; /* ระยะห่างด้านบน */
+}
+.category_food {
+    text-align: center; /* การจัดกึ่งกลางข้อความ */
+    color: #333; /* สีข้อความ */
+    margin-bottom: 30px; /* ระยะห่างด้านล่าง */
+    margin-top: 30px;
+}
+.home-section-icon {
+    width: 50px; /* ขนาดไอคอน */
+    height: auto;
+    margin-right: 10px; /* ระยะห่างด้านขวาของไอคอน */
+}
+.image-row {
+    display: flex; /* การแสดงผลเป็นแถว */
+    justify-content: center; /* การจัดกึ่งกลางรูปภาพ */
+    gap: 20px; /* ระยะห่างระหว่างภาพ */
+}
+.image {
+    width: 200px; /* ขนาดของรูปภาพ */
+    height: 200px;
+    border-radius: 10px; /* การกำหนดรูปวงกลม */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงาของรูป */
+    transition: transform 0.3s ease; /* การเปลี่ยนรูปร่างแบบแอนิเมชั่น */
+    object-fit: contain;
+}
+.image:hover {
+    transform: scale(1.05); /* การขยายภาพเมื่อโฮเวอร์ */
+}
+.nav-link {
+color: #555; /* สีของข้อความปกติ */
+transition: color 0.3s; /* เพื่อให้เปลี่ยนสีของข้อความเมื่อโฮเวอร์ */
+}
+.nav-link:hover {
+    color: #007bff; /* สีข้อความเมื่อโฮเวอร์ */
+    text-decoration: none; /* เอาเส้นใต้ข้อความออกเมื่อโฮเวอร์ */
+}
+.category_food {
+    font-family: Arial, sans-serif; /* เปลี่ยนแบบอักษร */
+    font-size: 24px; /* เปลี่ยนขนาดอักษร */
+    color: #333; /* เปลี่ยนสีข้อความ */
+    text-align: center; /* จัดข้อความตามศูนย์กลาง */
+    text-transform: uppercase; /* ทำให้ข้อความเป็นตัวพิมพ์ใหญ่ทั้งหมด */
+  }
+  
+  #home-section-icon {
+    width: 50px; /* เปลี่ยนขนาดของรูปภาพ */
+    height: 50px;
+    margin-right: 10px; /* เพิ่มระยะห่างระหว่างรูปภาพกับข้อความ */
+  }

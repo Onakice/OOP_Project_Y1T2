@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Menu</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="homepagestyle.css">
+    <link rel="stylesheet" href="menuhomepagestyle.css">
+    <link rel="stylesheet" href="headerstyle.css">
+</head>
+<body>
+    
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <div class="col-md-3 mb-2 mb-md-0">
+              <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                  MyPizza
+              </a>
+            </div>
+      
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="homepage.html" class="nav-link px-2">Home</a></li>
+              <li><a href="basket.html" class="nav-link px-2">Basket</a></li>
+              <li><a href="menu.html" class="nav-link px-2">Menu</a></li>
+              <li><a href="transaction.html" class="nav-link px-2">Transaction</a></li>
+              <li><a href="review.html" class="nav-link px-2">Review</a></li>
+          </ul>
+      
+            <div class="col-md-3 text-end">
+              <button type="button" class="btn btn-outline-primary me-2" onclick="gotoLogin()">Login</button>
+              <button type="button" class="btn btn-primary" onclick="gotoSignup()">Sign-up</button>
+            </div>
+          </header>
+
+        <h1>Your Custom</h1>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div id="pizzaImageContainer"></div>
+            <div>
+                <form id="orderForm" action="basket.html" method="GET" class="d-flex align-items-center mb-2">
+                    <label for="size" class="me-2">Choose Size:</label>
+                    <select name="size" id="size" class="me-2">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                    </select>
+                    <label for="quantity" class="me-2">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="5">
+                    <button id="addToBasketButton" class="btn btn-primary w-100 py-2" type="button" onclick="addBasket()">Add To Basket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        window.onload = function() {
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var selectedPizza = urlParams.get('pizza');
+            var selectedDrink = urlParams.get('drink');
+
+            localStorage.setItem('selectedPizza', selectedPizza);
+            console.log(selectedPizza);
+            if (selectedDrink) {
+                var drinkImage = document.createElement('img');
+                drinkImage.src = 'Pictures/' + selectedDrink + '.jpg';
+                drinkImage.alt = selectedDrink;
+                document.getElementById('pizzaImageContainer').appendChild(drinkImage);
+            } else {
+                var pizzaImage = document.createElement('img');
+                pizzaImage.src = 'Pictures/' + selectedPizza + '.jpg';
+                pizzaImage.alt = selectedPizza;
+                document.getElementById('pizzaImageContainer').appendChild(pizzaImage);
+            }
+            const token = localStorage.getItem("Token");
+            console.log(token);
+        };
+
+        function addBasket() {
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var selectedPizza = urlParams.get('pizza');
+            var selectedDrink = urlParams.get('drink');
+            var selectedSize = document.getElementById('size').value;
+            var selectedQuantity = document.getElementById('quantity').value;
+
+            var token = localStorage.getItem('Token');
+
+            if (selectedPizza) { // เช็คว่ามีพิซซ่าที่เลือกแล้วไหม
+                fetch(`http://127.0.0.1:8001/basket/add_pizza/?token=${token}&face=${selectedPizza}&size=${selectedSize}&quantity=${selectedQuantity}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token,
+                        face: selectedPizza,
+                        size: selectedSize,
+                        quantity: selectedQuantity
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // หาก API เรียกใช้สำเร็จ
+                    console.log('Success:', data);
+                    // นำผู้ใช้ไปยังหน้า basket.html
+                    window.location.href = "basket.html";
+                })
+                .catch((error) => {
+                    // หากเกิดข้อผิดพลาดในการเรียก API
+                    console.error('Error:', error);
+                });
+            }
+
+            if (selectedDrink) { // เช็คว่ามีเครื่องดื่มที่เลือกแล้วไหม
+                fetch(`http://127.0.0.1:8001/basket/add_drink/?token=${token}&name=${selectedDrink}&size=${selectedSize}&quantity=${selectedQuantity}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token,
+                        drink: selectedDrink,
+                        size: selectedSize,
+                        quantity: selectedQuantity
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.href = "basket.html";
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+        
+        function gotoLogin() {
+            window.location.href = "login.html";
+        }
+        function gotoSignup() {
+            window.location.href = "register.html";
+        }
+    </script>
+</body>
+</html>
